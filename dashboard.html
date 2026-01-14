@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard • AI Tools Directory</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-mark">AI</div>
+        <div class="logo-text">Admin</div>
+      </div>
+      <nav class="side-nav">
+        <button data-tab="dashboard" class="nav-item active">Dashboard</button>
+        <button data-tab="add" class="nav-item">Add Tool</button>
+        <button data-tab="manage" class="nav-item">Manage Tools</button>
+        <button data-tab="settings" class="nav-item">Settings</button>
+        <button id="logoutBtn" class="nav-item danger">Logout</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h1>AI Tools Admin</h1>
+        <div class="actions">
+          <button id="exportBtn" class="btn">Export JSON</button>
+          <button id="importBtn" class="btn">Import JSON</button>
+        </div>
+      </header>
+
+      <section class="import-panel">
+        <div class="panel-grid">
+          <div class="upload-row">
+            <input id="jsonFile" type="file" accept=".json" />
+            <span id="fileName" class="file-name"></span>
+            <span id="importError" class="error" aria-live="polite"></span>
+          </div>
+          <div class="preview-row">
+            <div class="preview-meta">
+              <span id="previewCount">0 tools</span>
+              <button id="startImport" class="btn-primary" disabled>Import</button>
+              <span id="importProgress" class="progress"></span>
+            </div>
+            <table class="preview-table">
+              <thead>
+                <tr>
+                  <th>Name</th><th>Category</th><th>Pricing</th><th>Verified</th>
+                </tr>
+              </thead>
+              <tbody id="previewBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section id="tab-dashboard" class="tab active">
+        <div class="cards">
+          <div class="stat-card">
+            <h3>Total Tools</h3>
+            <div id="stat-total" class="stat-value">0</div>
+          </div>
+          <div class="stat-card">
+            <h3>Featured</h3>
+            <div id="stat-featured" class="stat-value">0</div>
+          </div>
+          <div class="stat-card">
+            <h3>Categories</h3>
+            <div id="stat-categories" class="stat-value">0</div>
+          </div>
+          <div class="stat-card">
+            <h3>Latest Added</h3>
+            <ul id="stat-latest" class="list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-add" class="tab">
+        <form id="addForm" class="form-grid">
+          <h2>Add New Tool</h2>
+          <label><span>Name</span><input id="add-name" required /></label>
+          <label><span>Description</span><input id="add-description" required /></label>
+          <label><span>Category</span><input id="add-category" placeholder="AI Writing / Image / Video / ..." required /></label>
+          <label><span>Section</span><input id="add-section" placeholder="latest / selection / supertools / chat" required /></label>
+          <label><span>Website URL</span><input id="add-website" placeholder="https://example.com" required /></label>
+          <label><span>Pricing Text</span><input id="add-pricing" placeholder="from $8" /></label>
+          <div class="row">
+            <label><input type="checkbox" id="add-featured" /> Featured</label>
+            <label><input type="checkbox" id="add-top" /> Top</label>
+            <label><input type="checkbox" id="add-verified" /> Verified</label>
+          </div>
+          <button type="submit" class="btn-primary">Save Tool</button>
+        </form>
+      </section>
+
+      <section id="tab-manage" class="tab">
+        <div class="filters">
+          <input id="filter-q" placeholder="Search by name..." />
+          <input id="filter-category" placeholder="Filter by category..." />
+          <input id="filter-section" placeholder="Filter by section..." />
+        </div>
+        <table class="tools-table">
+          <thead>
+            <tr>
+              <th>Name</th><th>Category</th><th>Section</th><th>Website</th><th>Flags</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="toolsRows"></tbody>
+        </table>
+      </section>
+
+      <section id="tab-settings" class="tab">
+        <h2>Settings</h2>
+        <form id="credForm" class="form-grid">
+          <label><span>Admin Username</span><input id="cred-username" required /></label>
+          <label><span>Admin Password</span><input id="cred-password" type="password" required /></label>
+          <button type="submit" class="btn">Save Credentials</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+    <script>
+      window.Admin.protect();
+      window.Admin.mount();
+    </script>
+  </body>
+  </html>

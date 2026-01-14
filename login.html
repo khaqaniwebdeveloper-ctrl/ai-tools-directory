@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Login • AI Tools Directory</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <main class="auth-wrap">
+      <section class="auth-card">
+        <h1 class="auth-title">Admin Login</h1>
+        <p class="auth-subtitle">Enter your credentials to manage AI tools.</p>
+        <form id="loginForm" class="auth-form">
+          <label>
+            <span>Username</span>
+            <input type="text" id="username" placeholder="admin" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" id="password" placeholder="••••••••" required />
+          </label>
+          <button type="submit" class="btn-primary">Login</button>
+        </form>
+        <p class="auth-help">Default: admin / admin123. You can change credentials after login.</p>
+      </section>
+    </main>
+    <script src="admin.js"></script>
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const u = document.getElementById('username').value.trim();
+        const p = document.getElementById('password').value;
+        window.Admin.login(u, p);
+      });
+    </script>
+  </body>
+  </html>
+

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+      AI Tools Directory
+      Tech: HTML5, CSS3, Vanilla JavaScript
+      Design: Clean, minimal, responsive — inspired by aixploria.com (original)
+    -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Discover the best AI tools for writing, images, video, coding, marketing, and more. Live search and category filters in a fast, minimal UI." />
+    <meta name="keywords" content="AI tools, directory, writing, image, video, coding, marketing, search, filters" />
+    <meta property="og:title" content="AI Tools Directory" />
+    <meta property="og:description" content="Discover the best AI tools with live search and category filters." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://placehold.co/1200x630/ffffff/111111?text=AI+Tools+Directory" />
+    <title>AI Tools Directory</title>
+
+    <!-- Performance: preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Typography: Inter (professional, modern) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Styles -->
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Accessible skip link -->
+    <a class="skip-link" href="#tools">Skip to tools</a>
+
+    <!-- Header: logo, navigation, search -->
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <a href="#" class="logo" aria-label="AI Tools Directory Home">
+          <!-- Simple logo mark -->
+          <span class="logo-mark" aria-hidden="true">AI</span>
+          <span class="logo-text">Tools Directory</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#tool-lists" class="nav-link">Categories</a>
+          <a href="#tools" class="nav-link">All Tools</a>
+        </nav>
+
+        <!-- Live search input -->
+        <div class="search">
+          <label class="sr-only" for="search-input">Search tools</label>
+          <input id="search-input" type="search" placeholder="Search tools…" aria-label="Search tools" />
+        </div>
+      </div>
+    </header>
+
+    <main id="home">
+      <!-- Hero section -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-inner">
+          <h1 id="hero-title">Discover the Best AI Tools</h1>
+          <p class="hero-subtitle">
+            Explore curated AI tools for writing, images, video, coding, marketing, and more — all in a clean, fast, and minimal directory.
+          </p>
+          <div class="hero-cta">
+            <div class="toggle-group" role="group" aria-label="Hero toggles">
+              <button class="toggle-btn active" data-target="#tools">Explore Tools</button>
+              <button class="toggle-btn" data-target="#tool-lists">Browse Categories</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Smart Filter Bar -->
+      <section id="filterbar" class="section" aria-label="Filters">
+        <div class="container">
+          <div class="filter-bar">
+            <div class="filter-left">
+              <div class="input-wrap">
+                <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                <input id="filter-search" type="search" placeholder="Search over 5000+ AI tools..." aria-label="Search tools" />
+              </div>
+            </div>
+            <div class="filter-center">
+              <div class="socials" aria-label="Social links">
+                <a href="#" class="social" aria-label="X">X</a>
+                <a href="#" class="social" aria-label="Facebook">f</a>
+                <a href="#" class="social" aria-label="LinkedIn">in</a>
+                <a href="#" class="social" aria-label="Telegram">tg</a>
+                <a href="#" class="social" aria-label="Email">@</a>
+              </div>
+              <select id="filter-category-select" class="category-select" aria-label="Select category">
+                <option value="">-- Select a category --</option>
+              </select>
+            </div>
+            <div class="filter-right">
+              <button id="filter-verified" class="verified-toggle" type="button" aria-pressed="false" aria-label="Toggle verified">
+                ✔ Verified
+              </button>
+              <div class="pills" role="group" aria-label="Pricing filters">
+                <button class="pill pill-free" data-pricing="Free" type="button">Free AI</button>
+                <button class="pill pill-freemium" data-pricing="Freemium" type="button">Freemium</button>
+                <button class="pill pill-paid" data-pricing="Paid" type="button">Paid</button>
+                <button class="pill pill-trial" data-pricing="Trial" type="button">Free Trial</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured AI Tools -->
+      <section id="featured" class="section" aria-labelledby="featured-title">
+        <div class="container">
+          <div class="section-header">
+            <h2 id="featured-title">Featured AI Tools</h2>
+            <p class="section-subtitle">Premium picks — curated and verified.</p>
+          </div>
+          <div id="featured-grid" class="grid" aria-live="polite" aria-busy="false"></div>
+        </div>
+      </section>
+
+      <!-- Trending Categories -->
+      <section id="trending" class="section" aria-labelledby="trending-title">
+        <div class="container">
+          <div class="trend-header">
+            <span class="divider"></span>
+            <h2 id="trending-title">TRENDING CATEGORIES</h2>
+            <span class="divider"></span>
+          </div>
+          <div class="trend-grid" aria-live="polite">
+            <button class="trend-card" onclick="navigateToCategory('AI Video')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">Video Generators</span>
+            </button>
+            <button class="trend-card" onclick="navigateToCategory('AI Design / UI')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">AI Logo Generator</span>
+            </button>
+            <button class="trend-card" onclick="navigateToCategory('AI Marketing / SEO')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">AI Marketing</span>
+            </button>
+            <button class="trend-card" onclick="navigateToCategory('AI Business / Automation')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">AI Automation</span>
+            </button>
+            <button class="trend-card" onclick="navigateToCategory('AI Image')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">Image Generators</span>
+            </button>
+            <button class="trend-card" onclick="navigateToCategory('AI Image')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">AI Face Swap</span>
+            </button>
+            <button class="trend-card" onclick="navigateToCategory('AI Chat / Writing')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">AI Characters</span>
+            </button>
+            <button class="trend-card" onclick="navigateToCategory('AI Chat / Writing')">
+              <span class="trend-icon" aria-hidden="true"></span>
+              <span class="trend-title-txt">AI Girlfriend</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Categories section removed -->
+
+      <!-- Multi-column lists section (dynamic, reusable) -->
+      <section id="tool-lists" class="section" aria-labelledby="lists-title">
+        <div class="container">
+          <div class="section-header">
+            <h2 id="lists-title">SOME AI CATEGORIES</h2>
+            <p class="section-subtitle">Curated boxes update automatically from data.</p>
+          </div>
+          <!-- JS will inject list cards here -->
+          <div id="lists-grid" class="lists-grid" aria-live="polite" aria-busy="false"></div>
+        </div>
+      </section>
+
+      <!-- Tools listing -->
+      <section id="tools" class="section" aria-labelledby="tools-title">
+        <div class="container">
+          <div class="section-header">
+            <h2 id="tools-title">Top AI Tools</h2>
+            <p class="section-subtitle">Search and filter — results update live.</p>
+          </div>
+
+          <!-- Grid where tool cards are rendered -->
+          <div id="tools-grid" class="grid" aria-live="polite" aria-busy="false"></div>
+
+          <!-- Empty state (hidden by default) -->
+          <div id="empty-state" class="empty-state" hidden>
+            <div class="empty-card">
+              <h3>No tools found</h3>
+              <p>Try changing your search or selecting a different category.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer premium-footer" role="contentinfo">
+      <div class="container footer-grid">
+        <div class="footer-col brand">
+          <a href="#home" class="logo mini">
+            <span class="logo-mark" aria-hidden="true">AI</span>
+            <span class="logo-text">Tools Directory</span>
+          </a>
+          <h4 class="footer-title">About</h4>
+          <p class="footer-desc">Discover, compare and explore the best AI tools for writing, images, video, audio, coding and more.</p>
+          <ul class="footer-badges">
+            <li>✔ Verified AI Tools</li>
+            <li>✔ Updated Daily</li>
+          </ul>
+        </div>
+        <div class="footer-col categories">
+          <h4 class="footer-title">AI Categories</h4>
+          <ul class="footer-list">
+            <li><a href="#categories">AI Chat & Writing</a></li>
+            <li><a href="#categories">AI Image</a></li>
+            <li><a href="#categories">AI Video</a></li>
+            <li><a href="#categories">AI Audio / Voice</a></li>
+            <li><a href="#categories">AI Coding / Dev</a></li>
+            <li><a href="#categories">AI Marketing & SEO</a></li>
+            <li><a href="#categories">AI Productivity</a></li>
+            <li><a href="#categories">AI Design / UI</a></li>
+            <li><a href="#categories">AI Business / Automation</a></li>
+          </ul>
+        </div>
+        <div class="footer-col quick">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#tools">All Tools</a></li>
+            <li><a href="#tools">Submit an AI Tool</a></li>
+            <li><a href="#featured">Featured Tools</a></li>
+            <li><a href="#tools">Pricing</a></li>
+            <li><a href="#home">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col newsletter">
+          <h4 class="footer-title">Stay Updated</h4>
+          <form class="newsletter-form" action="#" aria-label="Newsletter">
+            <input type="email" placeholder="Enter your email" aria-label="Email" />
+            <button type="submit" class="btn-subscribe">Subscribe</button>
+          </form>
+          <div class="footer-social" aria-label="Social">
+            <a href="#" aria-label="X">X</a>
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Telegram">tg</a>
+            <a href="#" aria-label="Email">@</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+          <div class="bottom-left">© <span id="year"></span> AI Tools Directory — All rights reserved.</div>
+          <div class="bottom-center">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Disclaimer</a>
+          </div>
+          <div class="bottom-right">Built with ❤️ for AI community</div>
+        </div>
+      </div>
+    </footer>
+
+    <noscript>
+      <div class="noscript">
+        For full functionality (live search and filters), please enable JavaScript.
+      </div>
+    </noscript>
+
+    <!-- Scripts (deferred for performance) -->
+    <script src="script.js" defer></script>
+  </body>
+</html>
+
